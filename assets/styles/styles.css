@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+tiles__tile {
+  border: 1px solid black;
+  height: 150px;
+  width: 150px;
+}
+tiles__tile__front {
+  background-color: red;
+}
+tiles__tile__back {
+  background-color: blue;
+}
+
+.header {
+  text-align: center;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}

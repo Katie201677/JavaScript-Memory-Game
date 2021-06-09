@@ -1,0 +1,17 @@
+@use "./variables" as *;
+
+//tiles:
+
+tiles__tile {
+  border: 1px solid black;
+  height: 150px;
+  width: 150px;
+
+  &__front {
+  background-color: red;
+  }
+
+  &__back {
+    background-color: blue;
+  }
+}

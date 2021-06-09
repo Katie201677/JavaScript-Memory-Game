@@ -1,0 +1,14 @@
+@use "./variables" as *;
+
+//header:
+
+.header {
+  text-align: center;
+}
+
+//tiles grid:
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
