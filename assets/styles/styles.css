@@ -4,16 +4,38 @@
   padding: 0;
 }
 
-tiles__tile {
+.tiles__tile {
+  background-color: transparent;
   border: 1px solid black;
   height: 150px;
   width: 150px;
 }
-tiles__tile__front {
+.tiles__tile-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.tiles__tile-front, .tiles__tile-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  /* Safari */
+  backface-visibility: hidden;
+}
+.tiles__tile-front {
   background-color: red;
 }
-tiles__tile__back {
+.tiles__tile-back {
   background-color: blue;
+  transform: rotateY(180deg);
+}
+
+.tiles__tile:hover .tiles__tile-inner {
+  transform: rotateY(180deg);
 }
 
 .header {
