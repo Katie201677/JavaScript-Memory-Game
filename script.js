@@ -7,6 +7,8 @@ const isFlippedArray = tilesArray.map((tile) => {
 let firstTile = "";
 let secondTile = "";
 let count = 0;
+let tileOne;
+let tileTwo;
 
 const shuffle = (array) => {
   let arr = [...array];
@@ -30,9 +32,13 @@ const setUpBoard = (tiles) => {
 }
 
 
-const handleMatch = (firstTile, secondTile) => {
-  if (firstTile === secondTile) {
-    console.log("match")
+const handleMatch = (tileOne, tileTwo) => {
+  if (tileOne.getAttribute("class") === tileTwo.getAttribute("class")) {
+    console.log("match");
+    setInterval(() => {
+    tileOne.classList.add("hidden");
+    tileTwo.classList.add("hidden");
+  }, 2000)
   }
   else console.log("no match")
   firstTile = "";
@@ -53,8 +59,17 @@ setUpBoard(tiles);
 const handleClick = (event) => {
   const selectedTile = event.currentTarget;
   count++;
-  console.log(count);
+
+  console.log(`tileOne is ${tileOne} and tileTwo is${tileTwo}`);
+
+  // if (tileOne === "undefined") {
+  //   tileOne = selectedTile;
+  // } else tileTwo = selectedTile;
   
+  tileOne ? tileTwo = selectedTile : tileOne = selectedTile;
+  
+  console.log(`tileOne is ${tileOne} and tileTwo is${tileTwo}`);
+
   if (count <= 2) {
     selectedTile.classList.add("isFlipped");
     if (firstTile === "") {
@@ -65,7 +80,7 @@ const handleClick = (event) => {
   
   if (count === 2) {
     selectedTile.classList.add("isFlipped");
-    handleMatch(firstTile, secondTile);
+    handleMatch(tileOne, tileTwo);
   }
 
   if (count > 2) return;
