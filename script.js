@@ -29,13 +29,6 @@ const setUpBoard = (tiles) => {
   })
 }
 
-// const setIsFlippedArray = (index) => {
-//   isFlippedArray = [
-//     ...isFlippedArray.slice(0, index),
-//     true,
-//     ...isFlippedArray.slice(index + 1),
-//   ]
-// } 
 
 const handleMatch = (firstTile, secondTile) => {
   if (firstTile === secondTile) {
@@ -44,8 +37,16 @@ const handleMatch = (firstTile, secondTile) => {
   else console.log("no match")
   firstTile = "";
   secondTile = "";
+  setInterval(reset, 2000);
 }
 
+const reset = () => {
+  tiles.forEach((tile) => {
+    if(tile.classList.contains("isFlipped")) {
+      tile.classList.remove("isFlipped");
+    }
+  })
+}
 
 setUpBoard(tiles);
 
@@ -54,18 +55,6 @@ const handleClick = (event) => {
   count++;
   console.log(count);
   
-  // let selectedClass = selectedTile.getAttribute("class");
-  // let index = selectedClass.match(/\d/);
-  
-  
-  // let classList = selectedTile.getAttribute("class");
-
-  // for (let i=0; i<tiles.length; i++) {
-  //   if (tiles[i].getAttribute("class").includes("isFlipped")) {
-  //     // count ++;
-  //     console.log(count);
-  //   }
-  // }
   if (count <= 2) {
     selectedTile.classList.add("isFlipped");
     if (firstTile === "") {
