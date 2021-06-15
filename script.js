@@ -9,6 +9,7 @@ let secondTile = "";
 let count = 0;
 let tileOne;
 let tileTwo;
+let processing = false;
 
 const shuffle = (array) => {
   let arr = [...array];
@@ -33,17 +34,17 @@ const setUpBoard = (tiles) => {
 
 
 const handleMatch = (tileOne, tileTwo) => {
+  processing = true;
   if (tileOne.getAttribute("class") === tileTwo.getAttribute("class")) {
     console.log("match");
-    setInterval(() => {
+    setTimeout(() => {
     tileOne.classList.add("hidden");
     tileTwo.classList.add("hidden");
-  }, 2000)
+  }, 1000)
   }
-  else console.log("no match")
-  firstTile = "";
-  secondTile = "";
-  setInterval(reset, 2000);
+  else console.log("no match");
+  // setInterval(reset, 2000);
+  console.log(tileOne, tileTwo);
 }
 
 const reset = () => {
@@ -51,36 +52,37 @@ const reset = () => {
     if(tile.classList.contains("isFlipped")) {
       tile.classList.remove("isFlipped");
     }
-  })
+  });
+  tileOne = null;
+  tileTwo = null;
+  processing = false;
+  // count = 0;
 }
 
 setUpBoard(tiles);
 
 const handleClick = (event) => {
+  if (processing) return;
   const selectedTile = event.currentTarget;
   count++;
-
-  console.log(`tileOne is ${tileOne} and tileTwo is${tileTwo}`);
-
-  // if (tileOne === "undefined") {
-  //   tileOne = selectedTile;
-  // } else tileTwo = selectedTile;
   
   tileOne ? tileTwo = selectedTile : tileOne = selectedTile;
-  
   console.log(`tileOne is ${tileOne} and tileTwo is${tileTwo}`);
 
   if (count <= 2) {
     selectedTile.classList.add("isFlipped");
-    if (firstTile === "") {
-       firstTile = selectedTile.getAttribute("class")
-     } else secondTile = selectedTile.getAttribute("class");
+  //   if (firstTile === "") {
+  //      firstTile = selectedTile.getAttribute("class")
+  //    } else secondTile = selectedTile.getAttribute("class");
   }
-  console.log(`firstTile is ${firstTile}, secondTile is ${secondTile}`);
+  // console.log(`firstTile is ${firstTile}, secondTile is ${secondTile}`);
   
   if (count === 2) {
     selectedTile.classList.add("isFlipped");
     handleMatch(tileOne, tileTwo);
+    setTimeout(reset, 2000);
+    count = 0;
+    console.log(count);
   }
 
   if (count > 2) return;
