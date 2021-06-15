@@ -1,6 +1,12 @@
 const tiles = document.querySelectorAll(".tile");
 const tileBacks = document.querySelectorAll(".tile__face--back");
 const tilesArray = ["fish", "fish", "shark", "shark", "crab", "crab", "jellyfish", "jellyfish"];
+const isFlippedArray = tilesArray.map((tile) => {
+  return false;
+});
+let firstTile = "";
+let secondTile = "";
+let count = 0;
 
 const shuffle = (array) => {
   let arr = [...array];
@@ -23,12 +29,59 @@ const setUpBoard = (tiles) => {
   })
 }
 
-setUpBoard(tileBacks);
+// const setIsFlippedArray = (index) => {
+//   isFlippedArray = [
+//     ...isFlippedArray.slice(0, index),
+//     true,
+//     ...isFlippedArray.slice(index + 1),
+//   ]
+// } 
+
+const handleMatch = (firstTile, secondTile) => {
+  if (firstTile === secondTile) {
+    console.log("match")
+  }
+  else console.log("no match")
+  firstTile = "";
+  secondTile = "";
+}
+
+
+setUpBoard(tiles);
 
 const handleClick = (event) => {
   const selectedTile = event.currentTarget;
-  selectedTile.classList.toggle("isFlipped");
+  count++;
+  console.log(count);
+  
+  // let selectedClass = selectedTile.getAttribute("class");
+  // let index = selectedClass.match(/\d/);
+  
+  
+  // let classList = selectedTile.getAttribute("class");
+
+  // for (let i=0; i<tiles.length; i++) {
+  //   if (tiles[i].getAttribute("class").includes("isFlipped")) {
+  //     // count ++;
+  //     console.log(count);
+  //   }
+  // }
+  if (count <= 2) {
+    selectedTile.classList.add("isFlipped");
+    if (firstTile === "") {
+       firstTile = selectedTile.getAttribute("class")
+     } else secondTile = selectedTile.getAttribute("class");
+  }
+  console.log(`firstTile is ${firstTile}, secondTile is ${secondTile}`);
+  
+  if (count === 2) {
+    selectedTile.classList.add("isFlipped");
+    handleMatch(firstTile, secondTile);
+  }
+
+  if (count > 2) return;
 }
+
 
 tiles.forEach((tile) => {
   tile.addEventListener("click", handleClick);
