@@ -12,3 +12,12 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
+
+//win message:
+.win-message {
+  display: none;
+}
+
+.visible {
+  display: block;
+}

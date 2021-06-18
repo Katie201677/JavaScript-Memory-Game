@@ -31,7 +31,6 @@
   background-color: red;
 }
 .tile__face--back {
-  background-color: blue;
   transform: rotateY(180deg);
 }
 
@@ -43,6 +42,26 @@
   display: none;
 }
 
+.tile.crab > .tile__face--back {
+  background-image: url("../images/crab.jpg");
+  background-size: cover;
+}
+
+.fish {
+  background-image: url("../images/fish.jpg");
+  background-size: cover;
+}
+
+.jellyfish {
+  background-image: url("../images/jellyfish.jpg");
+  background-size: cover;
+}
+
+.shark {
+  background-image: url("../images/shark.jpg");
+  background-size: cover;
+}
+
 .header {
   text-align: center;
 }
@@ -50,4 +69,12 @@
 .tiles {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.win-message {
+  display: none;
+}
+
+.visible {
+  display: block;
 }

@@ -1,16 +1,16 @@
+// variables:
+const button = document.querySelector(".win-message__button");
 const tiles = document.querySelectorAll(".tile");
-const tileBacks = document.querySelectorAll(".tile__face--back");
+console.log(tiles);
 const tilesArray = ["fish", "fish", "shark", "shark", "crab", "crab", "jellyfish", "jellyfish"];
-const isFlippedArray = tilesArray.map((tile) => {
-  return false;
-});
-let firstTile = "";
-let secondTile = "";
+const winMessage = document.querySelector(".win-message");
+
 let count = 0;
+let processing = false;
 let tileOne;
 let tileTwo;
-let processing = false;
 
+// function to shuffle an array randomly - used in game set-up:
 const shuffle = (array) => {
   let arr = [...array];
   for (let i=arr.length-1; i > 0; i--) {
@@ -22,9 +22,9 @@ const shuffle = (array) => {
   return arr;
 }
 
+// function to set up the board at the start of the game:
 const setUpBoard = (tiles) => {
   const shuffled = shuffle(tilesArray);
-  console.log(shuffled);
   let index = 0;
   tiles.forEach((tile) => {
     tile.classList.add(shuffled[index]);
@@ -32,21 +32,21 @@ const setUpBoard = (tiles) => {
   })
 }
 
-
+// function to check whether two selected cards are a match or not:
 const handleMatch = (tileOne, tileTwo) => {
-  processing = true;
+  processing = true; //prevents clicks while this function is running
   if (tileOne.getAttribute("class") === tileTwo.getAttribute("class")) {
-    console.log("match");
+    // setTimeout used to create slight delay before hiding matches:
     setTimeout(() => {
-    tileOne.classList.add("hidden");
-    tileTwo.classList.add("hidden");
-  }, 1000)
+      tileOne.classList.add("hidden");
+      tileTwo.classList.add("hidden");
+      // check whether game won:
+      gameOver(tiles);
+    }, 1000)
   }
-  else console.log("no match");
-  // setInterval(reset, 2000);
-  console.log(tileOne, tileTwo);
 }
 
+//function to flip tiles back if no match:
 const reset = () => {
   tiles.forEach((tile) => {
     if(tile.classList.contains("isFlipped")) {
@@ -56,39 +56,61 @@ const reset = () => {
   tileOne = null;
   tileTwo = null;
   processing = false;
-  // count = 0;
 }
 
-setUpBoard(tiles);
+//function to check whether each tile has been matched then display game over message and play again button:
+const gameOver = (tiles) => {
+  let status = [];
+  for (let i=0; i<tiles.length; i++) {
+    if (tiles[i].classList.contains("hidden")) {
+      status.push("hidden");
+    } else {
+      status.push("visible");
+    }
+  }
+  if (!status.includes("visible")) {
+    console.log(`game over`);
+    winMessage.classList.add("visible");
+  }
+}
 
+//function to reset board if 'play again' button clicked:
+const playAgain = () => {
+  tiles.forEach((tile) => {
+    tile.className = "tile";
+  });
+  tileOne = null;
+  tileTwo = null;
+  processing = false;
+  setUpBoard(tiles);
+  winMessage.classList.remove("visible");
+}
+
+//function to manage game play when tile clicked:
 const handleClick = (event) => {
-  if (processing) return;
+  if (processing) return; //prevents further clicks while matches are being checked:
   const selectedTile = event.currentTarget;
   count++;
   
   tileOne ? tileTwo = selectedTile : tileOne = selectedTile;
-  console.log(`tileOne is ${tileOne} and tileTwo is${tileTwo}`);
 
   if (count <= 2) {
     selectedTile.classList.add("isFlipped");
-  //   if (firstTile === "") {
-  //      firstTile = selectedTile.getAttribute("class")
-  //    } else secondTile = selectedTile.getAttribute("class");
   }
-  // console.log(`firstTile is ${firstTile}, secondTile is ${secondTile}`);
-  
   if (count === 2) {
     selectedTile.classList.add("isFlipped");
     handleMatch(tileOne, tileTwo);
-    setTimeout(reset, 2000);
+    setTimeout(reset, 1000);
     count = 0;
-    console.log(count);
   }
 
-  if (count > 2) return;
+  if (count > 2) return; 
 }
 
+setUpBoard(tiles);
 
 tiles.forEach((tile) => {
   tile.addEventListener("click", handleClick);
 })
+
+button.addEventListener("click", playAgain);
