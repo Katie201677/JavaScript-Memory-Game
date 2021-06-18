@@ -1,5 +1,6 @@
 // variables:
 const button = document.querySelector(".win-message__button");
+const tileGrid = document.querySelector(".tiles");
 const tiles = document.querySelectorAll(".tile");
 console.log(tiles);
 const tilesArray = ["fish", "fish", "shark", "shark", "crab", "crab", "jellyfish", "jellyfish"];
@@ -71,6 +72,7 @@ const gameOver = (tiles) => {
   if (!status.includes("visible")) {
     console.log(`game over`);
     winMessage.classList.add("visible");
+    tileGrid.classList.add("hide");
   }
 }
 
@@ -84,6 +86,7 @@ const playAgain = () => {
   processing = false;
   setUpBoard(tiles);
   winMessage.classList.remove("visible");
+  tileGrid.classList.remove("hide");
 }
 
 //function to manage game play when tile clicked:

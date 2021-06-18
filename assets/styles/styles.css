@@ -1,16 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.tile__container {
-  background-color: transparent;
-  border: 1px solid black;
-  height: 150px;
-  width: 150px;
+.body {
+  font-family: "Lato", sans-serif;
 }
 
+.tile__container {
+  background-color: transparent;
+  height: 100px;
+  width: 100px;
+}
+
+@media (min-width: 768px) {
+  .tile__container {
+    height: 150px;
+    width: 150px;
+  }
+}
 .tile {
   position: relative;
   width: 100%;
@@ -28,9 +38,13 @@
   backface-visibility: hidden;
 }
 .tile__face--front {
-  background-color: red;
+  background-image: url("../images/tile-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .tile__face--back {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transform: rotateY(180deg);
 }
 
@@ -62,19 +76,63 @@
   background-size: cover;
 }
 
+.win-message__h3 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.win-message__button {
+  background-color: #1D6C9C;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  width: 150px;
+}
+
+.body {
+  height: 100vh;
+}
+
 .header {
+  margin-bottom: 30px;
+  margin-top: 20px;
   text-align: center;
 }
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-around;
+}
+
+@media (min-width: 768px) {
+  .tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.tile__container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hide {
+  display: none;
 }
 
 .win-message {
   display: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .visible {
   display: block;
+}
+
+body {
+  background-image: linear-gradient(#8DC4D8, #07A2C6, #1D6C9C);
+  background-repeat: no-repeat;
 }

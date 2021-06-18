@@ -1,1 +1,6 @@
 @use "./variables" as *;
+
+body {
+  background-image: linear-gradient($color-light-blue, $color-mid-blue, $color-dark-blue);
+  background-repeat: no-repeat;
+}

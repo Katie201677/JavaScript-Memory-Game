@@ -1,19 +1,19 @@
-.tiles__tile {
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.tile__container {
   background-color: transparent;
-  border: 1px solid black;
   height: 150px;
-  perspective: 600px;
   width: 150px;
 }
-.tiles__tile-inner {
+
+.tile {
   position: relative;
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform 1s;
   transform-style: preserve-3d;
 }
-.tiles__tile-front, .tiles__tile-back {
+.tile__face {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -21,14 +21,52 @@
   /* Safari */
   backface-visibility: hidden;
 }
-.tiles__tile-front {
-  background-color: red;
+.tile__face--front {
+  background-image: url("../images/tile-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.tiles__tile-back {
-  background-color: blue;
+.tile__face--back {
   transform: rotateY(180deg);
 }
 
-.clicked .tiles__tile-inner {
+.isFlipped {
   transform: rotateY(180deg);
+}
+
+.hidden {
+  display: none;
+}
+
+.tile.crab > .tile__face--back {
+  background-image: url("../images/crab.jpg");
+  background-size: cover;
+}
+
+.fish {
+  background-image: url("../images/fish.jpg");
+  background-size: cover;
+}
+
+.jellyfish {
+  background-image: url("../images/jellyfish.jpg");
+  background-size: cover;
+}
+
+.shark {
+  background-image: url("../images/shark.jpg");
+  background-size: cover;
+}
+
+.win-message__h3 {
+  font-size: 50px;
+}
+.win-message__button {
+  background-color: #1D6C9C;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  width: 150px;
 }
