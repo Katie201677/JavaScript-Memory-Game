@@ -105,6 +105,7 @@
   gap: 10px;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-around;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -130,6 +131,12 @@
 
 .visible {
   display: block;
+}
+
+.canvas-container {
+  position: absolute;
+  top: 0;
+  z-index: -1;
 }
 
 body {

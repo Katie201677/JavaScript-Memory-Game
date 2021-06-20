@@ -117,3 +117,75 @@ tiles.forEach((tile) => {
 })
 
 button.addEventListener("click", playAgain);
+
+//bubbles animation:
+
+const canvasContainer = document.querySelector(".canvas-container");
+const canvasHeight = document.body.clientHeight;
+const canvasWidth = document.body.clientWidth;
+
+window.addEventListener('resize', () => {
+  canvas.height = document.body.clientHeight;
+  canvas.width = document.body.clientWidth;
+});
+
+canvasContainer.innerHTML = `<canvas class="canvas" width=${canvasWidth} height=${canvasHeight}></canvas>`;
+
+const canvas = document.querySelector(".canvas");
+const ctx = canvas.getContext("2d");
+
+let bubbles = [];
+let frame = 0;
+let yCoord = 1000;
+let xCoord;
+
+const bubbleImage = new Image();
+bubbleImage.src = "assets/images/bubble.png";
+bubbleImage.width = 20;
+bubbleImage.height = 20;
+
+// function to generate random coordinates:
+function generateRandomCoord(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); 
+}
+
+// function to populate an array with bubbles, up to a maximum and with randomly generated x coordinate:
+function populateBubbles(max) {
+  for (let i=0; i<max; i++) {
+    xCoord =  generateRandomCoord(0, canvasWidth);
+    yCoord = generateRandomCoord(700, 800);
+    bubbles.push({x: xCoord, y: yCoord});
+  }
+}
+populateBubbles(5);
+
+const drawBubble = (bubbleArray) => {
+  for (let i=0; i<bubbleArray.length; i++) {
+    ctx.drawImage(bubbleImage, bubbleArray[i].x, bubbleArray[i].y, 40, 40);
+  }  
+}
+
+const animateBubbles = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // add new ball to array every 13 frames
+  if (frame === 100) {
+    populateBubbles(3);
+  }
+  drawBubble(bubbles);
+
+  // make the bubbles rise:
+  for (let i=0; i<bubbles.length; i++) {
+    bubbles[i].y -= 1;
+    bubbles[i].x -= 0.3;
+  }
+  frame < 100 ? frame++ : frame = 1;
+
+  requestAnimationFrame(animateBubbles);
+}
+
+requestAnimationFrame(animateBubbles);
+
+
