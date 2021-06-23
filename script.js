@@ -61,14 +61,16 @@ const reset = () => {
 
 //function to check whether each tile has been matched then display game over message and play again button:
 const gameOver = (tiles) => {
-  let status = [];
-  for (let i=0; i<tiles.length; i++) {
-    if (tiles[i].classList.contains("hidden")) {
-      status.push("hidden");
+  // reducer creates an array from tiles node list then reduces to array of "hidden" or "visible":
+  let status = [...tiles].reduce((acc, cv) => {
+    if (cv.classList.contains("hidden")) {
+      acc.push("hidden");
     } else {
-      status.push("visible");
+      acc.push("visible");
     }
-  }
+    return acc;
+  }, []);
+  
   if (!status.includes("visible")) {
     console.log(`game over`);
     winMessage.classList.add("visible");
