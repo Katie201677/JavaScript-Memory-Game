@@ -95,9 +95,14 @@ const playAgain = () => {
 const handleClick = (event) => {
   if (processing) return; //prevents further clicks while matches are being checked:
   const selectedTile = event.currentTarget;
+  if (selectedTile.classList.contains("isFlipped")) return;
   count++;
   
-  tileOne ? tileTwo = selectedTile : tileOne = selectedTile;
+  if (tileOne) {
+    tileTwo = selectedTile;
+  } else {
+    tileOne = selectedTile
+  }
 
   if (count <= 2) {
     selectedTile.classList.add("isFlipped");
